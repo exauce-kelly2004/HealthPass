@@ -21,6 +21,25 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Installation
+
+After cloning the project, run the setup script to create the SQLite database and apply all migrations:
+
+```bash
+composer run setup
+```
+
+Start the local server with:
+
+```bash
+php artisan serve
+```
+
+Compte médecin de démonstration (créé par les migrations) :
+
+- Email : `medecin@healthpass.test`
+- Mot de passe : `Medecin@12345`
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.

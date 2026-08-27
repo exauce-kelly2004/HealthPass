@@ -29,7 +29,14 @@
                 @forelse ($medecins as $medecin)
                     <div class="flex flex-col gap-4 p-4 transition-colors hover:bg-fond-page sm:flex-row sm:items-center sm:justify-between">
                         <div class="flex min-w-0 items-center gap-3"><div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-container-high font-label-fort text-on-surface">{{ strtoupper(substr($medecin->prenom ?: 'D', 0, 1).substr($medecin->nom ?: 'M', 0, 1)) }}</div><div class="min-w-0"><p class="font-label-fort text-label-fort text-on-surface">Dr {{ $medecin->prenom }} {{ $medecin->nom }}</p><p class="font-corps-dense text-corps-dense text-on-surface-variant">{{ $medecin->specialite ?: 'Spécialité non renseignée' }} · {{ $medecin->email ?: 'Email non renseigné' }}</p></div></div>
-                        <div class="flex shrink-0 items-center gap-2"><a href="{{ route('admin.dashboard', ['section' => 'medecins', 'edit' => $medecin->id_docteur]) }}" aria-label="Modifier ce médecin" title="Modifier" class="rounded-lg p-2 text-secondary hover:bg-secondary-container/20"><span class="material-symbols-outlined">edit</span></a><form action="{{ route('doctors.destroy', $medecin->id_docteur) }}" method="POST">@csrf @method('DELETE')<button type="submit" aria-label="Supprimer ce médecin" title="Supprimer" class="rounded-lg p-2 text-error hover:bg-error-container/40"><span class="material-symbols-outlined">delete</span></button></form></div>
+                        <div class="flex shrink-0 items-center gap-2">
+                            @if ($medecin->est_approuve)
+                                <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">Approuvé</span>
+                            @else
+                                <form action="{{ route('doctors.approve', $medecin->id_docteur) }}" method="POST">@csrf @method('PATCH')<button type="submit" class="rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-on-primary">Approuver</button></form>
+                            @endif
+                            <a href="{{ route('admin.dashboard', ['section' => 'medecins', 'edit' => $medecin->id_docteur]) }}" aria-label="Modifier ce médecin" title="Modifier" class="rounded-lg p-2 text-secondary hover:bg-secondary-container/20"><span class="material-symbols-outlined">edit</span></a><form action="{{ route('doctors.destroy', $medecin->id_docteur) }}" method="POST">@csrf @method('DELETE')<button type="submit" aria-label="Supprimer ce médecin" title="Supprimer" class="rounded-lg p-2 text-error hover:bg-error-container/40"><span class="material-symbols-outlined">delete</span></button></form>
+                        </div>
                     </div>
                 @empty
                     <p class="p-8 text-center font-corps-dense text-corps-dense text-on-surface-variant">Aucun médecin enregistré.</p>

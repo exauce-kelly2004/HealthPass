@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->id_role === 'role-service';
     }
 
+    public function isDoctor(): bool
+    {
+        return $this->id_role === 'role-doctor';
+    }
+
     /**
      * Get the attributes that should be cast.
      *
